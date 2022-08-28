@@ -1,11 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const cors = require("cors")
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 
-router.get("/logout", auth, (req, res) => {
+const corsOptions = {
+  origin: true
+}
+
+router.get("/logout", auth, (req, res) => { 
   return res
     .clearCookie("token")
     .status(200)
@@ -18,7 +23,7 @@ router.get("/logout", auth, (req, res) => {
 //   console.log("checkToken passed");
 // });
 
-router.post("/login", async (req, res) => {
+router.post("/login", cors(corsOptions),async (req, res, next) => {
   const dbUser = await User.findOne({ email: req.body.email });
   try {
     const payload = { email: dbUser.email };
@@ -40,7 +45,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", async (req, res, next) => {
   try {
     const { name, email, password, role } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
