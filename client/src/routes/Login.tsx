@@ -23,14 +23,15 @@ export function Login() {
   const [email, setEmail] = useInputState("");
   const [password, setPassword] = useInputState("");
 
-  const handleSignin = (e: React.SyntheticEvent) => {
+  const handleSignin = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    
     axios
-      .post(
-        "/user/login",
-        { email: email, password: password },
-        { headers: { "Content-Type": "text/plain" } }
-      )
+      .post("/user/login", { email: email, password: password ,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
       .then((res) => {
         // console.log("res.data.message is: ", res.data.message)
         // create feedback area to make use of res.data.message
@@ -53,7 +54,7 @@ export function Login() {
         Welcome back!
       </Title>
       <Text color="dimmed" size="sm" align="center" mt={5}>
-        Don't have an account yet? Speak with Tim.
+        {authFail ? authFail : "Don't have an account yet? Speak with Tim."}
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">

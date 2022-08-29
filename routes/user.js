@@ -6,9 +6,6 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 
-const corsOptions = {
-  origin: true
-}
 
 router.get("/logout", auth, (req, res) => { 
   return res
@@ -23,9 +20,11 @@ router.get("/logout", auth, (req, res) => {
 //   console.log("checkToken passed");
 // });
 
-router.post("/login", cors(corsOptions),async (req, res, next) => {
-  const dbUser = await User.findOne({ email: req.body.email });
+router.post("/login",async (req, res) => {
+  console.info(req.body)
+  const dbUser = await User.findOne({ email: req.body.email }).exec();
   try {
+    console.log("dbUser is " + dbUser)
     const payload = { email: dbUser.email };
     const success = await bcrypt.compare(req.body.password, dbUser.password);
     const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
@@ -45,7 +44,7 @@ router.post("/login", cors(corsOptions),async (req, res, next) => {
   }
 });
 
-router.post("/signup", async (req, res, next) => {
+router.post("/signup", async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
