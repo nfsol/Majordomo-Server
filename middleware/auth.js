@@ -10,7 +10,7 @@ const auth = function (req, res, next) {
         return res.status(401).send("Unauthorized: Invalid token");
       } else {
         req.email = decoded.email;
-        return next();
+        next();
       }
     });
   }

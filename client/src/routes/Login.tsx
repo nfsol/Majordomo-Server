@@ -10,7 +10,7 @@ import {
   Group,
   Button,
 } from "@mantine/core";
-import { useInputState } from "@mantine/hooks";
+import { useInputState, useLocalStorage } from "@mantine/hooks";
 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -25,9 +25,11 @@ export function Login() {
 
   const handleSignin = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    
+
     axios
-      .post("/user/login", { email: email, password: password ,
+      .post("/user/login", {
+        email: email,
+        password: password,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -36,8 +38,12 @@ export function Login() {
         // console.log("res.data.message is: ", res.data.message)
         // create feedback area to make use of res.data.message
         // JWT is at res.data.token
-        if (res.data.message) setAuthFail(res.data.message);
-        else navigate("/menu", { replace: true });
+        setAuthFail(res.data.message);
+        if (res.data.token) {
+          axios.defaults.headers.common["Authorization"] =
+            "Bearer" + res.data.token;
+          navigate("/menu", { replace: true });
+        }
       })
       .catch((err) => console.log(err));
   };

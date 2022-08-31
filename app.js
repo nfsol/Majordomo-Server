@@ -21,7 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://10.0.0.5:5173"); 
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
@@ -42,6 +41,7 @@ const userRouter = require("./routes/user");
 //routes
 app.options('*', cors())
 app.use("/user", userRouter);
+app.get('*', (req, res) => res.sendFile(path.resolve('client', 'dist', 'index.html')));
 
 
 const server = https

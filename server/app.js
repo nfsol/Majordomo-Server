@@ -21,7 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
-
 //config
 const db = process.env.NODE_APP_MONGO_URI;
 const port = process.env.PORT || 3001;
@@ -37,7 +36,6 @@ const userRouter = require("./routes/user");
 
 //routes
 app.use("/user", userRouter);
-
 
 const server = https
   .createServer(
