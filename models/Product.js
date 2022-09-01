@@ -1,33 +1,23 @@
 
 const mongoose = require("mongoose");
 
-const SpotSchema = new mongoose.Schema({
+const ProductSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
 
-  lat: {
-    type: Number,
-    required: true,
-  },
-  lng: {
-    type: Number,
-    required: true,
-  },
-
-  url: {
-    type: String,
-    required: false,
-  },
-  desc: {
+  upc: {
     type: String,
     required: true,
   },
-  owner: {
+  exp: [{
+    type:String
+  }],
+  image: {
     type: String,
     required: true
   }
 });
 
-module.exports = mongoose.model("Spot", SpotSchema);
+module.exports = mongoose.model("Product", ProductSchema);

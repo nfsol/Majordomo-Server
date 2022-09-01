@@ -18,8 +18,8 @@ function getMedianOfCodeErrors(decodedCodes) {
 }
 
 const defaultConstraints = {
-    width: 640,
-    height: 480,
+    width: 480,
+    height: 320,
 };
 
 const defaultLocatorSettings = {
@@ -53,27 +53,12 @@ const Scanner = ({
     }, [onDetected]);
 
     const handleProcessed = (result) => {
-        const drawingCtx = Quagga.canvas.ctx.overlay;
-        const drawingCanvas = Quagga.canvas.dom.overlay;
-        drawingCtx.font = "24px Arial";
-        drawingCtx.fillStyle = 'green';
+        
 
         if (result) {
              alert(`* quagga onProcessed ${result.codeResult.code}` );
-            if (result.boxes) {
-                drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute('width')), parseInt(drawingCanvas.getAttribute('height')));
-                result.boxes.filter((box) => box !== result.box).forEach((box) => {
-                    Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: 'purple', lineWidth: 2 });
-                });
-            }
-            if (result.box) {
-                Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: 'blue', lineWidth: 2 });
-            }
-            if (result.codeResult && result.codeResult.code) {
-                drawingCtx.font = "24px Arial";
-                drawingCtx.fillText(result.codeResult.code, 10, 20);
-                
-            }
+            //create modal or redirect to product input wizard
+            //after axios request to server
         }
     };
 

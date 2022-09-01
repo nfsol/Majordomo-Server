@@ -10,7 +10,7 @@ import {
   Group,
   Button,
 } from "@mantine/core";
-import { useInputState, useLocalStorage } from "@mantine/hooks";
+import { useInputState } from "@mantine/hooks";
 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";

@@ -1,12 +1,13 @@
-import React, { useState, useRef } from 'react';
-import Scanner from './Scanner';
+import { useRef } from 'react';
 import Result from './Result';
+import Scanner from './Scanner';
+import { useSetState } from '@mantine/hooks';
 
 //Largely lifted from Quagga2's example page. 
 
 const CodeScanner = () => {
-    const [scanning, setScanning] = useState(false);
-    const [results, setResults] = useState([]);
+    const [scanning, setScanning] = useSetState(false);
+    const [results, setResults] = useSetState([]);
     const scannerRef = useRef(null);
 
     return (

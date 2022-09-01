@@ -6,7 +6,7 @@ import App from "./App";
 import { HeroImageRight } from "./components/HeroImageRight";
 
 import { Login } from "./routes/Login";
-import Scanner from "./routes/Scanner";
+import CodeScanner from "./components/CodeScanner";
 import { NotFound } from "./routes/NotFound";
 import Menu from "./routes/Menu";
 import { TableSort } from "./routes/Table";
@@ -30,7 +30,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <Route path="login" element={<Login />} />
           <Route path="forgot" element={<ForgotPassword />} />
           <Route path="menu" element={<Menu />} />
-          <Route path="scanner" element={<Scanner />} />
+          <Route path="scanner" element={<CodeScanner />} />
           <Route path="table" element={<TableSort data={placeholder} />} />
 
           <Route path="*" element={<NotFound />} />

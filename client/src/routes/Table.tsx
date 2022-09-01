@@ -35,13 +35,13 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+//image likely unnecessary
 interface RowData {
   name: string;
   upc: string;
   nextDate: string;
   image: string;
 }
-//image likely unnecessary above
 interface TableSortProps {
   data: RowData[];
 }

@@ -12,12 +12,12 @@ export default function App() {
 
   const [user, setUser] = useSetState({name:""})
   const authedLinks = [
-    { link: "/login/", label: "Login" },
-    { link: "Login", label: "Request Access" },
+    { link: "/menu/", label: "Menu" },
+    { link: "/user/logout/", label: "Sign Out" },
   ];
   const defaultLinks = [
     { link: "/login/", label: "Login" },
-    { link: "Login", label: "Request Access" },
+    { link: "/login/", label: "Request Access" },
   ];
   return (
     <MantineProvider
@@ -30,10 +30,7 @@ export default function App() {
       />
       <Outlet />
       <FooterSimple
-        links={[
-          { link: "/login/", label: "Login" },
-          { link: "Login", label: "Request Access" },
-        ]}
+        links={user ? authedLinks : defaultLinks}
       />
     </MantineProvider>
   );
