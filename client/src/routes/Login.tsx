@@ -10,10 +10,11 @@ import {
   Group,
   Button,
 } from "@mantine/core";
-import { useInputState } from "@mantine/hooks";
-
+import { useInputState, useLocalStorage } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+//import { useLocalStorage } from "../hooks/useLocalStorage";
+
 axios.defaults.withCredentials = true;
 
 export function Login() {
@@ -22,6 +23,7 @@ export function Login() {
   const [authFail, setAuthFail] = useInputState("");
   const [email, setEmail] = useInputState("");
   const [password, setPassword] = useInputState("");
+  const [user, setUser] = useLocalStorage({key:"token", defaultValue: "null"});
 
   const handleSignin = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -40,9 +42,11 @@ export function Login() {
         // JWT is at res.data.token
         setAuthFail(res.data.message);
         if (res.data.token) {
-          axios.defaults.headers.common["Authorization"] =
-            "Bearer" + res.data.token;
-          navigate("/menu", { replace: true });
+
+          setUser(res.data.token);
+          //  axios.defaults.headers.common["Authorization"] =
+          //    "Bearer" + res.data.token;
+           navigate("/menu", { replace: true });
         }
       })
       .catch((err) => console.log(err));

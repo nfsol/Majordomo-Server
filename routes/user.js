@@ -9,8 +9,7 @@ const auth = require("../middleware/auth");
 router.get("/logout", auth, (req, res) => {
   return res
     .clearCookie("token")
-    .status(200)
-    .json({ message: "Logout Success" });
+    .status(200);
 });
 
 router.get("/check", auth, function (req, res) {
@@ -75,7 +74,7 @@ router.post("/signup", async (req, res) => {
     }
   } catch (error) {
     if (error.code === 11000) {
-      return res.send({ status: "error", error: "email already exists" });
+      return res.send({ status: "error", error: "email already registered" });
     }
     console.log(JSON.stringify(error));
     throw error;

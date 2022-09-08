@@ -5,15 +5,15 @@ import { Outlet} from "react-router-dom";
 import { HeaderResponsive } from "./components/HeaderResponsive";
 import { FooterSimple } from "./components/FooterSimple";
 
-import "./App.css";
+import {AuthContext} from "./contexts/AuthContext"
 
 
 export default function App() {
-
-  const [user, setUser] = useSetState({name:""})
+  const [user, setUser] = useLocalStorage({key:'token', defaultValue:'null'});
+  
   const authedLinks = [
     { link: "/menu/", label: "Menu" },
-    { link: "/user/logout/", label: "Sign Out" },
+    { link: "/logout/", label: "Sign Out" },
   ];
   const defaultLinks = [
     { link: "/login/", label: "Login" },
@@ -25,13 +25,16 @@ export default function App() {
       withGlobalStyles
       withNormalizeCSS
     >
+      <AuthContext.Provider value={{user,setUser}}>
+
       <HeaderResponsive
-        links={ user ? authedLinks : defaultLinks}
-      />
+        links={ user !== 'null' ? authedLinks : defaultLinks}
+        />
       <Outlet />
       <FooterSimple
-        links={user ? authedLinks : defaultLinks}
-      />
+        links={user !== 'null' ? authedLinks : defaultLinks}
+        />
+        </AuthContext.Provider>
     </MantineProvider>
   );
 }
