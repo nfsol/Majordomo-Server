@@ -1,15 +1,17 @@
 import { MantineProvider } from "@mantine/core";
-import { useSetState, useLocalStorage } from '@mantine/hooks';
+//import { useSetState} from '@mantine/hooks';
 import { Outlet} from "react-router-dom";
 
 import { HeaderResponsive } from "./components/HeaderResponsive";
 import { FooterSimple } from "./components/FooterSimple";
 
-import {AuthContext} from "./contexts/AuthContext"
+import {AuthProvider} from "./contexts/AuthContext"
+import { useState } from "react";
 
 
 export default function App() {
-  const [user, setUser] = useLocalStorage({key:'token', defaultValue:'null'});
+  
+  const [loggedIn, setLoggedIn] = useState<boolean>(false)
   
   const authedLinks = [
     { link: "/menu/", label: "Menu" },
@@ -25,16 +27,16 @@ export default function App() {
       withGlobalStyles
       withNormalizeCSS
     >
-      <AuthContext.Provider value={{user,setUser}}>
+      <AuthProvider>
 
       <HeaderResponsive
-        links={ user !== 'null' ? authedLinks : defaultLinks}
+        links={ loggedIn ? authedLinks : defaultLinks}
         />
       <Outlet />
       <FooterSimple
-        links={user !== 'null' ? authedLinks : defaultLinks}
+        links={loggedIn ? authedLinks : defaultLinks}
         />
-        </AuthContext.Provider>
+        </AuthProvider>
     </MantineProvider>
   );
 }
