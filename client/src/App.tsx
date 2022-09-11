@@ -5,13 +5,14 @@ import { Outlet} from "react-router-dom";
 import { HeaderResponsive } from "./components/HeaderResponsive";
 import { FooterSimple } from "./components/FooterSimple";
 
+import { useAuthContext } from "./hooks/useAuthContext";
 import {AuthProvider} from "./contexts/AuthContext"
-import { useState } from "react";
+
 
 
 export default function App() {
-  
-  const [loggedIn, setLoggedIn] = useState<boolean>(false)
+  const {loggedIn} = useAuthContext()
+  // const [loggedIn, setLoggedIn] = useState<boolean>(false)
   
   const authedLinks = [
     { link: "/menu/", label: "Menu" },
@@ -19,7 +20,7 @@ export default function App() {
   ];
   const defaultLinks = [
     { link: "/login/", label: "Login" },
-    { link: "/login/", label: "Request Access" },
+    { link: "/logout/", label: "Request Access" },
   ];
   return (
     <MantineProvider
