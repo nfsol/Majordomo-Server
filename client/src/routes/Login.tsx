@@ -11,39 +11,37 @@ import {
   Button,
 } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import axios from "axios";
-
-import { useLoggedIn } from "../App";
-
-//import { useAuthContext } from "../hooks/useAuthContext";
+import {useContext} from 'react'
+import {UserContext} from "../contexts/UserContext"
 
 axios.defaults.withCredentials = true;
 
 export function Login() {
   const navigate = useNavigate();
-
+  const userContext = useContext(UserContext);
   const [authFail, setAuthFail] = useInputState("");
   const [email, setEmail] = useInputState("");
   const [password, setPassword] = useInputState("");
-  const { loggedIn, setLoggedIn } = useLoggedIn();
+  
   const handleSignin = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-
+    
     axios
-      .post("/user/login", {
-        email: email,
-        password: password,
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      })
-      .then((res) => {
-        // console.log("res.data.message is: ", res.data.message)
-        // create feedback area to make use of res.data.message
-        setAuthFail(res.data.message);
-        if (res.data.token) {
-          setLoggedIn(false);
+    .post("/user/login", {
+      email: email,
+      password: password,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    })
+    .then((res) => {
+      // console.log("res.data.message is: ", res.data.message)
+      // create feedback area to make use of res.data.message
+      setAuthFail(res.data.message);
+      if (res.data.token) {
+          userContext.setUser({token:res.data.token});
           navigate("/menu", { replace: true });
         }
       })

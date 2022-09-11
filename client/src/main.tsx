@@ -2,18 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
-
 import { HeroImageRight } from "./components/HeroImageRight";
+import CodeScanner from "./components/CodeScanner";
 
 import { Login } from "./routes/Login";
 import {Logout} from "./routes/Logout"
-import CodeScanner from "./components/CodeScanner";
+import { ForgotPassword } from "./routes/Forgot";
 import { NotFound } from "./routes/NotFound";
 import Menu from "./routes/Menu";
 import { TableSort } from "./routes/Table";
-import { ForgotPassword } from "./routes/Forgot";
 
 import "./index.css";
+
 
 const placeholder = [
   { name: "Apple", upc: "125783234434", nextDate: "12-30-22", image: "cloudinary" },

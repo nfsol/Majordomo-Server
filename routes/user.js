@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 
 router.get("/logout", auth, (req, res) => {
-  res.clearCookie("token").status(200);
+  res.clearCookie("token");
   res.redirect("/");
 });
 
