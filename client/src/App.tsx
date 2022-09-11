@@ -1,43 +1,47 @@
 import { MantineProvider } from "@mantine/core";
 //import { useSetState} from '@mantine/hooks';
-import { Outlet} from "react-router-dom";
-
+import { Outlet, useOutletContext} from "react-router-dom";
+import { useState } from "react";
 import { HeaderResponsive } from "./components/HeaderResponsive";
 import { FooterSimple } from "./components/FooterSimple";
 
-import { useAuthContext } from "./hooks/useAuthContext";
-import {AuthProvider} from "./contexts/AuthContext"
 
+interface AuthContext {
+  loggedIn: boolean,
+  setLoggedIn: Function,
+};
 
 
 export default function App() {
-  const {loggedIn} = useAuthContext()
-  // const [loggedIn, setLoggedIn] = useState<boolean>(false)
   
+
+  const [loggedIn,setLoggedIn] = useState<boolean>(false);
+  
+
   const authedLinks = [
     { link: "/menu/", label: "Menu" },
     { link: "/logout/", label: "Sign Out" },
   ];
   const defaultLinks = [
     { link: "/login/", label: "Login" },
-    { link: "/logout/", label: "Request Access" },
+    { link: "/logout/", label: `Request Access` },
   ];
   return (
     <MantineProvider
-      theme={{ colorScheme: "dark"}}
-      withGlobalStyles
-      withNormalizeCSS
+    theme={{ colorScheme: "dark"}}
+    withGlobalStyles
+    withNormalizeCSS
     >
-      <AuthProvider>
 
       <HeaderResponsive
         links={ loggedIn ? authedLinks : defaultLinks}
         />
-      <Outlet />
+      <Outlet context={[loggedIn, setLoggedIn]}/>
       <FooterSimple
         links={loggedIn ? authedLinks : defaultLinks}
         />
-        </AuthProvider>
     </MantineProvider>
   );
 }
+export function useLoggedIn() {
+  return useOutletContext<AuthContext>();}

@@ -10,11 +10,13 @@ import {
   Group,
   Button,
 } from "@mantine/core";
-import { useInputState, useLocalStorage } from "@mantine/hooks";
+import { useInputState } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useAuthContext } from "../hooks/useAuthContext";
-//import { useLocalStorage } from "../hooks/useLocalStorage";
+
+import { useLoggedIn } from "../App";
+
+//import { useAuthContext } from "../hooks/useAuthContext";
 
 axios.defaults.withCredentials = true;
 
@@ -24,8 +26,7 @@ export function Login() {
   const [authFail, setAuthFail] = useInputState("");
   const [email, setEmail] = useInputState("");
   const [password, setPassword] = useInputState("");
-  //const [user, setUser] = useLocalStorage({key:"token", defaultValue: "null"});
-  const {setLoggedIn} = useAuthContext()
+  const { loggedIn, setLoggedIn } = useLoggedIn();
   const handleSignin = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
@@ -40,14 +41,10 @@ export function Login() {
       .then((res) => {
         // console.log("res.data.message is: ", res.data.message)
         // create feedback area to make use of res.data.message
-        // JWT is at res.data.token
         setAuthFail(res.data.message);
         if (res.data.token) {
-
-          setLoggedIn(true);
-            axios.defaults.headers.common["Authorization"] =
-              "Bearer" + res.data.token;
-           navigate("/menu", { replace: true });
+          setLoggedIn(false);
+          navigate("/menu", { replace: true });
         }
       })
       .catch((err) => console.log(err));
