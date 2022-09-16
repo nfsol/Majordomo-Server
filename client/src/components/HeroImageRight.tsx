@@ -1,28 +1,28 @@
-import { createStyles, Container, Title, Text, Button } from '@mantine/core';
+import { createStyles, Container, Title, Text, Button } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   root: {
-    backgroundColor: '#11284b',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundColor: "#11284b",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
     backgroundImage:
-      'linear-gradient(250deg, rgba(130, 201, 30, 0) 0%, #062343 70%), url(https://images.unsplash.com/photo-1601600576337-c1d8a0d1373c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80)',
+      "linear-gradient(250deg, rgba(130, 201, 30, 0) 0%, #062343 70%), url(https://images.unsplash.com/photo-1601600576337-c1d8a0d1373c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80)",
     paddingTop: theme.spacing.xl * 3,
     paddingBottom: theme.spacing.xl * 3,
   },
 
   inner: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: "flex",
+    justifyContent: "space-between",
 
-    [theme.fn.smallerThan('md')]: {
-      flexDirection: 'column',
+    [theme.fn.smallerThan("md")]: {
+      flexDirection: "column",
     },
   },
 
   image: {
-    [theme.fn.smallerThan('md')]: {
-      display: 'none',
+    [theme.fn.smallerThan("md")]: {
+      display: "none",
     },
   },
 
@@ -31,7 +31,7 @@ const useStyles = createStyles((theme) => ({
     paddingBottom: theme.spacing.xl * 2,
     marginRight: theme.spacing.xl * 3,
 
-    [theme.fn.smallerThan('md')]: {
+    [theme.fn.smallerThan("md")]: {
       marginRight: 0,
     },
   },
@@ -44,8 +44,8 @@ const useStyles = createStyles((theme) => ({
     maxWidth: 500,
     fontSize: 48,
 
-    [theme.fn.smallerThan('md')]: {
-      maxWidth: '100%',
+    [theme.fn.smallerThan("md")]: {
+      maxWidth: "100%",
       fontSize: 34,
       lineHeight: 1.15,
     },
@@ -56,8 +56,8 @@ const useStyles = createStyles((theme) => ({
     opacity: 0.75,
     maxWidth: 500,
 
-    [theme.fn.smallerThan('md')]: {
-      maxWidth: '100%',
+    [theme.fn.smallerThan("md")]: {
+      maxWidth: "100%",
     },
   },
 
@@ -67,8 +67,8 @@ const useStyles = createStyles((theme) => ({
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
     fontSize: 22,
 
-    [theme.fn.smallerThan('md')]: {
-      width: '100%',
+    [theme.fn.smallerThan("md")]: {
+      width: "100%",
     },
   },
 }));
@@ -81,40 +81,41 @@ export function HeroImageRight() {
         <div className={classes.inner}>
           <div className={classes.content}>
             <Title className={classes.title}>
-              A {' '}
+              A clear{" "} <Text
+                component="span"
+                inherit
+                variant="gradient"
+                gradient={{ from: "pink", to: "yellow" }}
+              >
+                view
+              </Text>{" "} of{" "}
               <Text
                 component="span"
                 inherit
                 variant="gradient"
-                gradient={{ from: 'pink', to: 'yellow' }}
+                gradient={{ from: "pink", to: "yellow" }}
               >
-                clear view
-              </Text>{' '}
-              of your products{' '}<Text
-                component="span"
-                inherit
-                variant="gradient"
-                gradient={{ from: 'pink', to: 'yellow' }}
-              >
-                shelf life
-              </Text>{' '} at a {' '}
+                your products
+              </Text>{" "}
+              shelf life{" "}
               <Text
                 component="span"
                 inherit
                 variant="gradient"
-                gradient={{ from: 'pink', to: 'yellow' }}
+                gradient={{ from: "pink", to: "yellow" }}
               >
-                glance
-              </Text>{' '}
+                at a glance
+              </Text>{" "}
             </Title>
 
             <Text className={classes.description} mt={30}>
-              Simply scan product into Majordomo and we'll help you make sure that product doesn't go to waste!
+              Simply scan product into Majordomo and we'll help you make sure
+              that product doesn't go to waste!
             </Text>
 
             <Button
               variant="gradient"
-              gradient={{ from: 'pink', to: 'yellow' }}
+              gradient={{ from: "pink", to: "yellow" }}
               size="xl"
               className={classes.control}
               mt={40}

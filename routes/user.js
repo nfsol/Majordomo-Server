@@ -63,10 +63,8 @@ router.post("/signup", async (req, res) => {
         expiresIn: "1h",
       });
       if (accessToken) {
-        res.cookie("token", accessToken, { httpOnly: true });
-        res.status(200).send({
-          message: "Registration successful",
-        });
+        res.cookie("token", accessToken, { httpOnly: true })
+          res.json({ message: "Sign up successful.", token: accessToken });
       }
     }
   } catch (error) {

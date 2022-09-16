@@ -84,7 +84,7 @@ export function Login() {
         <Group position="apart" mt="md">
           <Checkbox label="Remember me" />
           <Anchor<"a">
-            onClick={(event) => event.preventDefault()}
+            onClick={(event) => navigate("/forgot/", { replace: true })}
             href="#"
             size="sm"
           >
