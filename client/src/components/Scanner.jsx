@@ -59,7 +59,7 @@ const Scanner = ({
 
   const handleProcessed = (result) => {
     if (result) {
-      alert(`* quagga onProcessed ${result.codeResult.code}`);
+      alert(`quagga onProcessed ${result.codeResult.code}`);
       //create modal or redirect to product input wizard
       //after axios request to server
     }

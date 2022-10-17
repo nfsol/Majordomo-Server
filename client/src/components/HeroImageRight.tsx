@@ -81,14 +81,16 @@ export function HeroImageRight() {
         <div className={classes.inner}>
           <div className={classes.content}>
             <Title className={classes.title}>
-              A clear{" "} <Text
+              A clear{" "}
+              <Text
                 component="span"
                 inherit
                 variant="gradient"
                 gradient={{ from: "pink", to: "yellow" }}
               >
                 view
-              </Text>{" "} of{" "}
+              </Text>{" "}
+              of{" "}
               <Text
                 component="span"
                 inherit

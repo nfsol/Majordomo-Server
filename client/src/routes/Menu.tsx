@@ -1,11 +1,11 @@
 import { Container, Stack, Button, Space } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
-import {useContext} from 'react'
-import {UserContext} from "../contexts/UserContext"
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 function Menu() {
   const navigate = useNavigate();
-  const userContext = useContext(UserContext)
+  const userContext = useContext(UserContext);
   return (
     <Container>
       <Stack
