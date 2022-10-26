@@ -31,7 +31,7 @@ function Menu() {
         <Button
           variant="outline"
           onClick={() => {
-            navigate("/scanner", { replace: true });
+            navigate("/iteminput", { replace: true });
           }}
         >
           Scan Product

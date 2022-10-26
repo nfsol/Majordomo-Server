@@ -3,18 +3,18 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import { HeroImageRight } from "./components/HeroImageRight";
-import CodeScanner from "./components/CodeScanner";
 
 import { Signup } from "./routes/Signup";
 import { Login } from "./routes/Login";
-import {Logout} from "./routes/Logout"
+import { Logout } from "./routes/Logout";
 import { ForgotPassword } from "./routes/Forgot";
 import { NotFound } from "./routes/NotFound";
 import Menu from "./routes/Menu";
 import { TableSort } from "./routes/Table";
-
+import ItemInput from "./routes/ItemInput";
+import { UserContextProvider } from "./contexts/UserContext";
+import AuthRoutes from "./components/AuthRoutes";
 import "./index.css";
-
 
 const placeholder = [
   { name: "Apple", upc: "125783234434", nextDate: "12-30-22", image: "cloudinary" },
@@ -25,21 +25,25 @@ const placeholder = [
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<HeroImageRight />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
-          <Route path="forgot" element={<ForgotPassword />} />
-          <Route path="logout" element={<Logout />} />
-          <Route path="menu" element={<Menu />} />
-          <Route path="scanner" element={<CodeScanner />} />
-          <Route path="table" element={<TableSort data={placeholder} />} />
+    <UserContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<HeroImageRight />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="forgot" element={<ForgotPassword />} />
 
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            <Route path="logout" element={<Logout />} />
+            <Route element={<AuthRoutes />}>
+              <Route path="menu" element={<Menu />} />
+              <Route path="iteminput" element={<ItemInput />} />
+              <Route path="table" element={<TableSort data={placeholder} />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </UserContextProvider>
   </React.StrictMode>
 );

@@ -7,15 +7,12 @@ import { useSetState } from '@mantine/hooks';
 
 const CodeScanner = () => {
     const [scanning, setScanning] = useSetState(false);
-    const [results, setResults] = useSetState([]);
+    const [result, setResult] = useSetState("");
     const scannerRef = useRef(null);
 
     return (
         <div>
             <button onClick={() => setScanning(!scanning) }>{scanning ? 'Stop' : 'Start'}</button>
-            <ul className="results">
-                {results.map((result) => (result.codeResult && <Result key={result.codeResult.code} result={result} />))}
-            </ul>
             <div ref={scannerRef} style={{position: 'relative', border: '3px solid red'}}>
                 <canvas className="drawingBuffer" style={{
                     position: 'absolute',
@@ -24,9 +21,10 @@ const CodeScanner = () => {
                     // height: '100%',
                     // width: '100%',
                     border: '3px solid green',
-                }} width="640" height="480" />
-                {scanning ? <Scanner scannerRef={scannerRef} onDetected={(result) => setResults([...results, result])} /> : null}
+                }} width="320" height="240" />
+                {scanning ? <Scanner scannerRef={scannerRef} onDetected={(result) => setResult(result)} /> : null}
             </div>
+            <h2>{result}</h2>
         </div>
     );
 };

@@ -6,7 +6,7 @@ import { UserContext } from "../contexts/UserContext";
 
 const authedLinks = [
   { link: "/menu/", label: "Menu" },
-  { link: "/logout/", label: "Sign Out" },
+  { link: "/logout/", label: "Log Out" },
 ];
 const defaultLinks = [
   { link: "/login/", label: "Login" },
