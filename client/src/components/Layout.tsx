@@ -4,6 +4,7 @@ import { FooterSimple } from "./FooterSimple";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 
+
 const authedLinks = [
   { link: "/menu/", label: "Menu" },
   { link: "/logout/", label: "Log Out" },
@@ -15,6 +16,7 @@ const defaultLinks = [
 
 const Layout = () => {
   const userContext = useContext(UserContext);
+  
   return (
     <>
       <HeaderResponsive links={userContext.user ? authedLinks : defaultLinks} />

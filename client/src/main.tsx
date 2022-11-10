@@ -33,7 +33,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="forgot" element={<ForgotPassword />} />
-
             <Route path="logout" element={<Logout />} />
             <Route element={<AuthRoutes />}>
               <Route path="menu" element={<Menu />} />

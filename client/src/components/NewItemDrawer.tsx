@@ -23,18 +23,21 @@ const NewItemDrawer = ({lastScan,setLastScan}:{lastScan:string|null,setLastScan:
         size="xl"
       >
        <div style={{ maxWidth: 320, margin: 'auto' }}>
-        {lastScan ? <h2>Scanned UPC:{lastScan}</h2> : null}
+
+        {/* {define onSubmit function elsewhere } */}
+       <form onSubmit={form.onSubmit((values) => console.log(values))}>
+       <h2>Scanned UPC:{lastScan ? lastScan: null}</h2>
       <TextInput label="Product Name" placeholder="Optional" {...form.getInputProps('name')} />
       <FileInput label="Capture Image" placeholder="Click to Open Camera" accept="image/png,image/jpeg" {...form.getInputProps('image')}/>
       <DatePicker placeholder="Pick date" label="Best Before" />
       <Group position="center" mt="xl">
         <Button
           variant="outline"
-          onClick={() => {}}
         >
           Submit
         </Button>
       </Group>
+      </form>
     </div>
       </Drawer>
     </>
