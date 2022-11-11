@@ -1,12 +1,10 @@
 import { useRef,useState } from 'react';
 import Scanner from './Scanner';
-import { useSetState } from '@mantine/hooks';
 
 //Largely lifted from Quagga2's example page. 
 
 const CodeScanner = ({lastScan,setLastScan}) => {
     const [scanning, setScanning] = useState(false);
-    //const [result, setResult] = useSetState("");
     const scannerRef = useRef(null);
 
     return (

@@ -2,17 +2,18 @@ import { Dispatch, useState } from 'react';
 import { TextInput, FileInput, Drawer, Button, Group } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { useForm } from '@mantine/form';
+import axios from 'axios';
 const NewItemDrawer = ({lastScan,setLastScan}:{lastScan:string|null,setLastScan:Dispatch<string|null>}) => {
   const form = useForm({
     initialValues: {
-      upc: lastScan,
+      upc: '',
       name: '',
-      image: {},
+      image: null,
       bbDate: ''
     },
   });
   const [opened, setOpened] = useState(false);
-
+  // form.setFieldValue('upc', lastScan);
   return (
     <>
       <Drawer
@@ -25,14 +26,15 @@ const NewItemDrawer = ({lastScan,setLastScan}:{lastScan:string|null,setLastScan:
        <div style={{ maxWidth: 320, margin: 'auto' }}>
 
         {/* {define onSubmit function elsewhere } */}
-       <form onSubmit={form.onSubmit((values) => console.log(values))}>
-       <h2>Scanned UPC:{lastScan ? lastScan: null}</h2>
+       <form onSubmit={form.onSubmit((values) => axios.post("/product/new",values))}>
+       <h2>Scanned UPC:{lastScan ? lastScan : "Error"}</h2>
       <TextInput label="Product Name" placeholder="Optional" {...form.getInputProps('name')} />
       <FileInput label="Capture Image" placeholder="Click to Open Camera" accept="image/png,image/jpeg" {...form.getInputProps('image')}/>
-      <DatePicker placeholder="Pick date" label="Best Before" />
+      <DatePicker placeholder="Pick date" label="Best Before" {...form.getInputProps('bbDate')}/>
       <Group position="center" mt="xl">
         <Button
           variant="outline"
+          type="submit"
         >
           Submit
         </Button>

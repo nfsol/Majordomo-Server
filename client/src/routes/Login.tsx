@@ -41,7 +41,7 @@ export function Login() {
       // create feedback area to make use of res.data.message
       setAuthFail(res.data.message);
       if (res.data.token) {
-          userContext.setUser({token:res.data.token});
+          userContext.setUser(res.data.token);
           navigate("/menu", { replace: true });
         }
       })

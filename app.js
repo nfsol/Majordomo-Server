@@ -41,10 +41,12 @@ mongoose
 //import routes
 
 const userRouter = require("./routes/user");
+const productRouter = require("./routes/product");
 
 //routes
 app.options("*", cors());
 app.use("/user", userRouter);
+app.use("/product",productRouter);
 app.get("*", (req, res) =>
   res.sendFile(path.resolve("client", "dist", "index.html"))
 );
