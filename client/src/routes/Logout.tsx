@@ -11,8 +11,8 @@ export const Logout = () => {
   const userContext = useContext(UserContext);
   const [response, setResponse] = useState({});
   const getResponse = async () => {
-    setResponse(await axios.get("/user/logout", { withCredentials: true }));
     userContext.setUser(null);
+    setResponse(await axios.get("/user/logout", { withCredentials: true }));
   };
   useEffect(() => {
     getResponse();

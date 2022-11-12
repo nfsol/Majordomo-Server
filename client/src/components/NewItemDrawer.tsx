@@ -1,7 +1,8 @@
 import { Dispatch, useState } from 'react';
-import { TextInput, FileInput, Drawer, Button, Group } from '@mantine/core';
+import { TextInput, FileInput, Drawer, Button, Group, JsonInput } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { useForm } from '@mantine/form';
+import Compressor from "compressorjs";
 import axios from 'axios';
 const NewItemDrawer = ({lastScan,setLastScan}:{lastScan:string|null,setLastScan:Dispatch<string|null>}) => {
   const form = useForm({
@@ -12,12 +13,41 @@ const NewItemDrawer = ({lastScan,setLastScan}:{lastScan:string|null,setLastScan:
       bbDate: ''
     },
   });
-  const [opened, setOpened] = useState(false);
-  // form.setFieldValue('upc', lastScan);
+
+  const [upc, setUpc] = useState<string>(String(lastScan));
+  const [name, setName] = useState<string>("");
+  const [image, setImage] = useState<File | null>(null);
+  const [bbDate, setBBDate] = useState<Date | null>(new Date());
+
+  const imageCompress= (img: File) => {
+    new Compressor(img, {
+      quality: 0.6,
+      success(result: File) {
+        setImage(result)
+        console.log(result)
+      },
+      error(err) {
+        console.log(err.message);
+      },
+    });
+    
+  }
+  const submitForm = () => {
+    const formData = new FormData();
+    formData.append("upc",upc);
+    formData.append("name",name);
+    formData.append("image",image!);
+    formData.append("bbDate",bbDate!.toDateString());
+    
+    axios.post("/product/new", formData);
+  }
+
+
   return (
     <>
       <Drawer
-        opened={lastScan ? true : false}
+        opened={true}
+
         onClose={() => setLastScan(null)}
         title="Add or Update Product"
         padding="xl"
@@ -25,21 +55,18 @@ const NewItemDrawer = ({lastScan,setLastScan}:{lastScan:string|null,setLastScan:
       >
        <div style={{ maxWidth: 320, margin: 'auto' }}>
 
-        {/* {define onSubmit function elsewhere } */}
-       <form onSubmit={form.onSubmit((values) => axios.post("/product/new",values))}>
        <h2>Scanned UPC:{lastScan ? lastScan : "Error"}</h2>
-      <TextInput label="Product Name" placeholder="Optional" {...form.getInputProps('name')} />
-      <FileInput label="Capture Image" placeholder="Click to Open Camera" accept="image/png,image/jpeg" {...form.getInputProps('image')}/>
-      <DatePicker placeholder="Pick date" label="Best Before" {...form.getInputProps('bbDate')}/>
+      <TextInput value={name}label="Product Name" placeholder="Optional" onChange={(event) => setName(event.currentTarget.value)} />
+      <FileInput value={image} label="Capture Image" placeholder="Click to Open Camera" accept="image/*" onChange={imageCompress}/>
+      <DatePicker value={bbDate} placeholder="Pick date" label="Best Before" onChange={setBBDate}/>
       <Group position="center" mt="xl">
         <Button
           variant="outline"
-          type="submit"
+          onClick={submitForm}
         >
           Submit
         </Button>
       </Group>
-      </form>
     </div>
       </Drawer>
     </>
