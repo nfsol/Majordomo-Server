@@ -1,7 +1,6 @@
 import React, {
   Dispatch,
   SetStateAction,
-  useState,
   createContext,
 } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";

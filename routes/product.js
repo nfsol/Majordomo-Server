@@ -14,10 +14,10 @@ const Product = require("../models/Product");
 const mongoose = require("mongoose");
 
 router.get("/:id", auth, async (req, res) => {
-  await Product.findOne({ upc: req.params.id }).then((upc) => {
+  await Product.findOne({ upc: req.params.id }).then((doc) => {
     res.json({
       message: "Query successful",
-      upc: upc ? upc : "",
+      doc: doc ? doc : "",
     });
   });
 });
@@ -38,8 +38,8 @@ router.post("/new", auth, upload.single("image"), async (req, res) => {
         image: result.url,
       });
       await newProduct.save();
-
       res.status(200).json({ message: "Success" });
+      readdirSync(dir).forEach((f) => rmSync(`${dir}/${f}`));
     })
     .catch((error) => {
       console.log(error);
@@ -57,7 +57,6 @@ router.post("/new", auth, upload.single("image"), async (req, res) => {
       err,
     });
   }
-  // readdirSync(dir).forEach((f) => rmSync(`${dir}/${f}`));
 });
 
 module.exports = router;

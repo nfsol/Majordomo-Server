@@ -10,18 +10,13 @@ const CodeScanner = ({lastScan,setLastScan}) => {
     return (
         <div>
             <button onClick={() => setScanning(!scanning) }>{scanning ? 'Stop' : 'Start'}</button>
-            <div ref={scannerRef} style={{position: 'relative', border: '3px solid red'}}>
+            <div ref={scannerRef} style={{position: 'relative'}}>
                 <canvas className="drawingBuffer" style={{
                     position: 'absolute',
-                    top: '0px',
-                    // left: '0px',
-                    // height: '100%',
-                    // width: '100%',
-                    border: '3px solid green',
+                    top: '0px'
                 }} width="320" height="240" />
                 {scanning ? <Scanner scannerRef={scannerRef} onDetected={(result) => setLastScan(result)} /> : null}
             </div>
-            {/* <h2>{result}</h2> */}
         </div>
     );
 };
