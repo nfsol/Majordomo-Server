@@ -17,14 +17,17 @@ const NewItemDrawer = ({lastScan,setLastScan}:{lastScan:string|null,setLastScan:
   const [upc, setUpc] = useState<string>(String(lastScan));
   const [name, setName] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
+  const [imageName, setImageName] =useState<string>("");
   const [bbDate, setBBDate] = useState<Date | null>(new Date());
 
-  const imageCompress= (img: File) => {
+  const imageCompressor= (img: File) => {
     new Compressor(img, {
       quality: 0.6,
       success(result: File) {
+        
+
         setImage(result)
-        console.log(result)
+        setImageName(result.name);
       },
       error(err) {
         console.log(err.message);
@@ -34,9 +37,9 @@ const NewItemDrawer = ({lastScan,setLastScan}:{lastScan:string|null,setLastScan:
   }
   const submitForm = () => {
     const formData = new FormData();
-    formData.append("upc",upc);
+    formData.append("upc", upc); 
     formData.append("name",name);
-    formData.append("image",image!);
+    formData.append("image",image!,imageName );
     formData.append("bbDate",bbDate!.toDateString());
     
     axios.post("/product/new", formData);
@@ -46,7 +49,7 @@ const NewItemDrawer = ({lastScan,setLastScan}:{lastScan:string|null,setLastScan:
   return (
     <>
       <Drawer
-        opened={true}
+        opened={Boolean(lastScan)} 
 
         onClose={() => setLastScan(null)}
         title="Add or Update Product"
@@ -57,7 +60,7 @@ const NewItemDrawer = ({lastScan,setLastScan}:{lastScan:string|null,setLastScan:
 
        <h2>Scanned UPC:{lastScan ? lastScan : "Error"}</h2>
       <TextInput value={name}label="Product Name" placeholder="Optional" onChange={(event) => setName(event.currentTarget.value)} />
-      <FileInput value={image} label="Capture Image" placeholder="Click to Open Camera" accept="image/*" onChange={imageCompress}/>
+      <FileInput value={image} label="Capture Image" placeholder="Click to Open Camera" accept="image/*" onChange={imageCompressor}/>
       <DatePicker value={bbDate} placeholder="Pick date" label="Best Before" onChange={setBBDate}/>
       <Group position="center" mt="xl">
         <Button
