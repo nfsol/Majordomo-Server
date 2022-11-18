@@ -30,7 +30,7 @@ router.post("/login", async (req, res) => {
           dbUser.password
         );
         const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: "1h",
+          expiresIn: "24h",
         });
         if (success) {
           res.cookie("token", accessToken, { httpOnly: true })

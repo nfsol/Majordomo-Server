@@ -9,7 +9,7 @@ const ItemInput = () => {
   
   return (
     <>
-      <CodeScanner lastScan={lastScan}setLastScan={setLastScan}/>
+      <CodeScanner setLastScan={setLastScan}/>
       <NewItemDrawer lastScan={lastScan}setLastScan={setLastScan}/>
       <LastItems />
     </>

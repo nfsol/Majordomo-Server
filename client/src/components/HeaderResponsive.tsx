@@ -7,6 +7,7 @@ import {
   Burger,
   Paper,
   Transition,
+  Title
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link } from "react-router-dom";
@@ -120,7 +121,7 @@ export function HeaderResponsive({ links }: HeaderResponsiveProps) {
   return (
     <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
       <Container className={classes.header}>
-        <Link to="/">Majordomo</Link>
+        <Title order={3}>Majordomo</Title>
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>

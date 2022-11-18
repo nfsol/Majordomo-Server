@@ -1,6 +1,7 @@
-import { TableSort } from "./Table";
-import axios from "axios";
 import { useState, useEffect } from "react";
+import axios from "axios";
+// import { TableSort } from "../components/Table";
+import { ProductTable } from "../components/ProductTable";
 
 const Upcoming = () => {
   interface RowData {
@@ -28,7 +29,7 @@ const Upcoming = () => {
 
   return (
     <>
-      {tableData[0] ? <TableSort data={tableData}  />: "Loading"} 
+      {tableData[0] ? <ProductTable data={tableData}  />: "Loading"} 
     </>
   );
 };

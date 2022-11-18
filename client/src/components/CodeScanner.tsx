@@ -1,9 +1,9 @@
-import { useRef,useState } from 'react';
+import { SetStateAction, useRef,useState } from 'react';
 import Scanner from './Scanner';
 
 //Largely lifted from Quagga2's example page. 
 
-const CodeScanner = ({lastScan,setLastScan}) => {
+const CodeScanner = ({setLastScan}:{setLastScan:React.Dispatch<React.SetStateAction<string|null>> }) => {
     const [scanning, setScanning] = useState(false);
     const scannerRef = useRef(null);
 
