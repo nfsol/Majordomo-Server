@@ -37,9 +37,10 @@ const useStyles = createStyles((theme) => ({
 
 //image likely unnecessary
 interface RowData {
+  _id:string;
   name: string;
   upc: string;
-  nextDate: string;
+  exp: string;
   image: string;
 }
 interface TableSortProps {
@@ -124,7 +125,7 @@ export function TableSort({ data }: TableSortProps) {
     <tr key={row.name}>
       <td>{row.name}</td>
       <td>{row.upc}</td>
-      <td>{row.nextDate}</td>
+      <td>{row.exp}</td>
     </tr>
   ));
 
@@ -159,9 +160,9 @@ export function TableSort({ data }: TableSortProps) {
               UPC
             </Th>
             <Th
-              sorted={sortBy === 'nextDate'}
+              sorted={sortBy === 'exp'}
               reversed={reverseSortDirection}
-              onSort={() => setSorting('nextDate')}
+              onSort={() => setSorting('exp')}
             >
               Next Date
             </Th>

@@ -11,9 +11,9 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  exp: [{
+  exp: {
     type:String
-  }],
+  },
   image: {
     type: String,
     required: true

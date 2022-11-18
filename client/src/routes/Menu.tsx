@@ -17,7 +17,7 @@ function Menu() {
         <Button
           variant="outline"
           onClick={() => {
-            navigate("/table", { replace: true });
+            navigate("/upcoming", { replace: true });
           }}
         >
           Upcoming Outdates

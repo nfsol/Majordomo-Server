@@ -13,14 +13,23 @@ const auth = require("../middleware/auth");
 const Product = require("../models/Product");
 const mongoose = require("mongoose");
 
+router.get("/all", auth, async (req, res) => {
+  await Product.find({}).then((payload) => {
+    res.json({
+      message: "Query successful",
+     payload
+    });
+  });
+});
 router.get("/:id", auth, async (req, res) => {
   await Product.findOne({ upc: req.params.id }).then((doc) => {
     res.json({
       message: "Query successful",
-      doc: doc ? doc : "",
+      doc: doc
     });
   });
 });
+
 
 router.post("/new", auth, upload.single("image"), async (req, res) => {
   
