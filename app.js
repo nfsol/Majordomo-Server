@@ -6,17 +6,18 @@ const fs = require("fs");
 const cloudinary = require("cloudinary");
 
 const mongoose = require("mongoose");
-const logger = require("morgan");
 const cookieParser = require("cookie-parser");
-
-// const bodyParser = require('body-parser');
 const dotenv = require("dotenv").config();
 
 const app = express();
+const morgan = require("morgan");
 
-//credentials: true,
 app.use(express.static(path.join(__dirname, "/client/dist")));
-app.use(logger("dev"));
+if (app.get('env') == 'production') {
+  app.use(morgan('common', { skip: function(req, res) { return res.statusCode < 400 }, stream: __dirname + '/../morgan.log' }));
+} else {
+  app.use(morgan('dev'));
+}
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

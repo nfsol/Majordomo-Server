@@ -8,7 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon --ignore client/dist/ app.js",
-    "client": "cd client && npm run build"
+    "client": "cd client && npm run build",
+    "render-install": "npm install && cd client && npm install && npm run build"
+
   },
   "author": "Tim P",
   "license": "MIT",

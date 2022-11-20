@@ -9,6 +9,8 @@ import {
     useMantineTheme,
   } from '@mantine/core';
   import { IconPencil, IconTrash } from '@tabler/icons';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
   
   interface ProductsTableProps {
     data: {
@@ -21,6 +23,14 @@ import {
   }
   
   export function ProductTable({ data }: ProductsTableProps) {
+    const navigate = useNavigate();
+  const deleteProduct = (id:string) => {
+    axios.delete(`/product/${id}`).then(() =>{
+      
+        navigate(0)
+      
+    })  
+  }
     const theme = useMantineTheme();
     const rows = data.map((item) => (
       <tr key={item.name}>
@@ -48,7 +58,7 @@ import {
               <IconPencil size={16} stroke={1.5} />
             </ActionIcon>
             <ActionIcon color="red">
-              <IconTrash size={16} stroke={1.5} />
+              <IconTrash size={16} stroke={1.5} onClick={()=>{deleteProduct(item._id)}}/>
             </ActionIcon>
           </Group>
         </td>
