@@ -58,16 +58,9 @@ app.get("*", (req, res) =>
   res.sendFile(path.resolve("client", "dist", "index.html"))
 );
 
-const server = https
-  .createServer(
-    {
-      key: fs.readFileSync("key.pem"),
-      cert: fs.readFileSync("cert.pem"),
-    },
-    app
-  )
-  .listen(port, function () {
+
+    app.listen(port, function () {
     console.log("Server runnning on " + port);
   });
 
-module.exports = server;
+module.exports = app;
