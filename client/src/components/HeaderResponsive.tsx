@@ -7,10 +7,11 @@ import {
   Burger,
   Paper,
   Transition,
-  Title
+  Title,
+  Mark
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HEADER_HEIGHT = 60;
 
@@ -42,6 +43,7 @@ const useStyles = createStyles((theme) => ({
     alignItems: "center",
     height: "100%",
   },
+
 
   links: {
     [theme.fn.smallerThan("sm")]: {
@@ -101,7 +103,7 @@ export function HeaderResponsive({ links }: HeaderResponsiveProps) {
   const [opened, { toggle, close }] = useDisclosure(false);
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
-
+  const navigate = useNavigate();
   const items = links.map((link) => (
     <Link
       key={link.label}
@@ -121,7 +123,7 @@ export function HeaderResponsive({ links }: HeaderResponsiveProps) {
   return (
     <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
       <Container className={classes.header}>
-        <Title order={3}>Majordomo</Title>
+        <Title order={3} onClick={()=>{navigate("/")}}>Majordomo</Title>
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>

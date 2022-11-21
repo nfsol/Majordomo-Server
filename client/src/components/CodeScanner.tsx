@@ -1,4 +1,5 @@
 import { SetStateAction, useRef,useState } from 'react';
+import {Button} from '@mantine/core'
 import Scanner from './Scanner';
 
 //Largely lifted from Quagga2's example page. 
@@ -9,7 +10,8 @@ const CodeScanner = ({setLastScan}:{setLastScan:React.Dispatch<React.SetStateAct
 
     return (
         <div>
-            <button onClick={() => setScanning(!scanning) }>{scanning ? 'Stop' : 'Start'}</button>
+
+            <Button variant="outline" fullWidth mt="xl" onClick={() => setScanning(!scanning) }>{scanning ? 'Stop' : 'Start'}</Button>
             <div ref={scannerRef} style={{position: 'relative'}}>
                 <canvas className="drawingBuffer" style={{
                     position: 'absolute',

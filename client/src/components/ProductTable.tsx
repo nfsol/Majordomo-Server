@@ -67,7 +67,7 @@ import { useNavigate } from 'react-router-dom';
   
     return (
       <ScrollArea>
-        <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
+        <Table sx={{ minWidth: 600 }} verticalSpacing="sm">
           <thead>
             <tr>
               <th>Product</th>

@@ -13,17 +13,24 @@ const app = express();
 const morgan = require("morgan");
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
-if (app.get('env') == 'production') {
-  app.use(morgan('common', { skip: function(req, res) { return res.statusCode < 400 }, stream: __dirname + '/../morgan.log' }));
+if (app.get("env") == "production") {
+  app.use(
+    morgan("common", {
+      skip: function (req, res) {
+        return res.statusCode < 400;
+      },
+      stream: __dirname + "/../morgan.log",
+    })
+  );
 } else {
-  app.use(morgan('dev'));
+  app.use(morgan("dev"));
 }
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Credentials', true);
+  res.header("Access-Control-Allow-Credentials", true);
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -34,10 +41,10 @@ app.use(function (req, res, next) {
 //config
 const port = process.env.PORT || 3001;
 const db = process.env.NODE_APP_MONGO_URI;
-cloudinary.config({ 
-  cloud_name: process.env.NODE_APP_CLOUD_NAME, 
-  api_key: process.env.NODE_APP_CLOUD_KEY, 
-  api_secret: process.env.NODE_APP_CLOUD_SECRET 
+cloudinary.config({
+  cloud_name: process.env.NODE_APP_CLOUD_NAME,
+  api_key: process.env.NODE_APP_CLOUD_KEY,
+  api_secret: process.env.NODE_APP_CLOUD_SECRET,
 });
 
 mongoose
@@ -53,14 +60,28 @@ const productRouter = require("./routes/product");
 //routes
 app.options("*", cors());
 app.use("/user", userRouter);
-app.use("/product",productRouter);
+app.use("/product", productRouter);
 app.get("*", (req, res) =>
   res.sendFile(path.resolve("client", "dist", "index.html"))
 );
 
+if (process.env.DEV) {
+  const server = https
+    .createServer(
+      {
+        key: fs.readFileSync("key.pem"),
+        cert: fs.readFileSync("cert.pem"),
+      },
+      app
+    )
+    .listen(port, function () {
+      console.log("Server running on " + port);
+    });
 
-    app.listen(port, function () {
-    console.log("Server runnning on " + port);
+  module.exports = server;
+} else {
+  app.listen(port, function () {
+    console.log("Server running on " + port);
   });
-
-module.exports = app;
+  module.exports = app;
+}

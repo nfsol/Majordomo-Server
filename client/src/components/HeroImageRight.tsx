@@ -1,4 +1,5 @@
 import { createStyles, Container, Title, Text, Button } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -74,6 +75,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function HeroImageRight() {
+  const navigate = useNavigate();
   const { classes } = useStyles();
   return (
     <div className={classes.root}>
@@ -121,6 +123,7 @@ export function HeroImageRight() {
               size="xl"
               className={classes.control}
               mt={40}
+              onClick={()=>{navigate("/signup")}}
             >
               Get started
             </Button>
