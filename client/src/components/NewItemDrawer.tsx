@@ -5,16 +5,19 @@ import {
   Drawer,
   Button,
   Group,
-  JsonInput,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import Compressor from "compressorjs";
 import axios from "axios";
 const NewItemDrawer = ({
+  isNewItem,
+  setIsNewItem,
   lastScan,
   setLastScan,
 }: {
+  isNewItem: boolean | null;
+  setIsNewItem: Dispatch<boolean | null>;
   lastScan: string | null;
   setLastScan: Dispatch<string | null>;
 }) => {
@@ -60,9 +63,9 @@ const NewItemDrawer = ({
   return (
     <>
       <Drawer
-        opened={Boolean(lastScan)}
+        opened={isNewItem === true}
         onClose={() => setLastScan(null)}
-        title="Add or Update Product"
+        title="Add New Product"
         padding="xl"
         size="xl"
       >

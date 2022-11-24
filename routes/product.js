@@ -27,8 +27,9 @@ router.get("/all", auth, async (req, res) => {
 });
 
 //Inspect individual product
-router.get("/:id", auth, async (req, res) => {
-  await Product.findOne({ upc: req.params.id }).then((payload) => {
+router.get("/:id", auth,(req, res) => {
+  Product.findOne({ upc: req.params.id }).then((payload) => {
+    console.log(payload)
     res.json({
       message: "Query successful",
       payload,
