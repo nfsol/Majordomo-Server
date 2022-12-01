@@ -10,21 +10,21 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv").config();
 
 const app = express();
-const morgan = require("morgan");
+// const morgan = require("morgan");
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
-if (app.get("env") == "production") {
-  app.use(
-    morgan("common", {
-      skip: function (req, res) {
-        return res.statusCode < 400;
-      },
-      stream: __dirname + "/../morgan.log",
-    })
-  );
-} else {
-  app.use(morgan("dev"));
-}
+// if (app.get("env") == "production") {
+//   app.use(
+//     morgan("common", {
+//       skip: function (req, res) {
+//         return res.statusCode < 400;
+//       },
+//       stream: __dirname + "/../morgan.log",
+//     })
+//   );
+// } else {
+//   app.use(morgan("dev"));
+// }
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
