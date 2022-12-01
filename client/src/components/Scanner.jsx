@@ -29,7 +29,7 @@ const defaultLocatorSettings = {
   halfSample: true,
 };
 
-const defaultDecoders = ["ean_reader"];
+const defaultDecoders = ["upc_reader"];
 
 const Scanner = ({
   onDetected,

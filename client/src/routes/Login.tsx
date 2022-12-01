@@ -38,7 +38,6 @@ export function Login() {
     })
     .then((res) => {
       // console.log("res.data.message is: ", res.data.message)
-      // create feedback area to make use of res.data.message
       setAuthFail(res.data.message);
       if (res.data.token) {
           userContext.setUser(res.data.token);

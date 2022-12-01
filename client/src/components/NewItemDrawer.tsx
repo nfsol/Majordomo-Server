@@ -63,7 +63,7 @@ const NewItemDrawer = ({
   return (
     <>
       <Drawer
-        opened={isNewItem === true}
+        opened={Boolean(lastScan) && isNewItem === true}
         onClose={() => setLastScan(null)}
         title="Add New Product"
         padding="xl"

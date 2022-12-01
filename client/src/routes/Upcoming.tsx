@@ -22,7 +22,7 @@ const Upcoming = () => {
 
   return (
     <>
-      {tableData[0] ? <ProductTable data={tableData}  />: "Loading"} 
+      {tableData[0] ? <ProductTable data={tableData}  />: "Loading..."} 
     </>
   );
 };

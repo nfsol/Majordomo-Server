@@ -17,11 +17,15 @@ const mongoose = require("mongoose");
 // rework. Truncated searches and pagination? More targeted search?
 //Speaking of rewrites, I really need to clean up
 // the mixed promises/callbacks, the errors have gotten "weird".
-router.get("/all", auth, async (req, res) => {
-  await Product.find({}).then((payload) => {
+router.get("/all", auth, (req, res) => {
+  Product.find({}).then((payload) => {
+    const joinedArraysPayload = payload.map((product) => {
+      product.exp = product.exp.join(", ");
+      return product;
+    })
     res.json({
       message: "Query successful",
-      payload,
+      payload:joinedArraysPayload,
     });
   });
 });
@@ -29,7 +33,17 @@ router.get("/all", auth, async (req, res) => {
 //Inspect individual product
 router.get("/:id", auth,(req, res) => {
   Product.findOne({ upc: req.params.id }).then((payload) => {
-    console.log(payload)
+    res.json({
+      message: "Query successful",
+      payload,
+    });
+  });
+});
+// update product
+router.patch("/:id", auth,(req, res) => {
+  
+  Product.findOneAndUpdate({ upc: req.params.id },{$addToSet:{exp: req.body.exp}}).then((payload) => {
+    
     res.json({
       message: "Query successful",
       payload,
@@ -38,8 +52,8 @@ router.get("/:id", auth,(req, res) => {
 });
 
 //Delete product. 
-router.delete("/:id", auth, async (req,res) => {
-  await Product.deleteOne({_id: req.params.id}).then((payload) => {
+router.delete("/:id", auth, (req,res) => {
+   Product.deleteOne({_id: req.params.id}).then((payload) => {
     res.status(200).json({
       message: "Deletion Successful",
       payload,
@@ -47,7 +61,7 @@ router.delete("/:id", auth, async (req,res) => {
   })
 })
 //Create new Product
-router.post("/new", auth, upload.single("image"), async (req, res) => {
+router.post("/new", auth, upload.single("image"), (req, res) => {
   const data = {
     image: req.file,
   };
@@ -59,7 +73,7 @@ router.post("/new", auth, upload.single("image"), async (req, res) => {
           _id: new mongoose.Types.ObjectId(),
           name: req.body.name,
           upc: req.body.upc,
-          exp: req.body.bbDate,
+          exp: [req.body.bbDate],
           image: result.url,
         });
         await newProduct.save();

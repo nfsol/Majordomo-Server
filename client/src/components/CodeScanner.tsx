@@ -16,7 +16,6 @@ const CodeScanner = ({
   const scannerRef = useRef(null);
   const onScan = (result: string) => {
     axios.get(`/product/${result}`).then((res) => {
-        console.log(res.data.payload);
       if (res.data.payload) {
         setIsNewItem(false);
       } else {

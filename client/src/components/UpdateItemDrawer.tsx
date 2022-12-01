@@ -24,11 +24,11 @@ const UpdateItemDrawer = ({
   const [bbDate, setBBDate] = useState<Date | null>(new Date());
 
   const submitForm = () => {
-    const formData = new FormData();
-    formData.append("upc", lastScan ? lastScan : "Error");
-    formData.append("bbDate", bbDate!.toDateString());
+    // const formData = new FormData();
+    // formData.append("upc", lastScan ? lastScan : "Error");
+    // formData.append("bbDate", bbDate!.toDateString());
 
-    axios.post(`/product/${lastScan}`, formData).then((res) => {
+    axios.patch(`/product/${lastScan}`, {exp:bbDate!.toDateString()}).then((res) => {
       if (res.status == 200) setLastScan(null);
       else setFeedback("something went wrong");
     });
@@ -37,7 +37,7 @@ const UpdateItemDrawer = ({
   return (
     <>
       <Drawer
-        opened={(isNewItem === false)}
+        opened={(Boolean(lastScan) && isNewItem === false)}
         onClose={() => {setLastScan(null)
             setIsNewItem(null)}}
         title="Update Product"
