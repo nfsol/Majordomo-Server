@@ -1,14 +1,7 @@
-import { Dispatch } from "react";
-import {
-  Modal,
-  Group,
-  Stack,
-  Image,
-  List,
-  Title,
-  ActionIcon,
-} from "@mantine/core";
+import { Dispatch, useState } from "react";
+import { Modal, Stack, Image, List, Title, ActionIcon } from "@mantine/core";
 import { IconTrash } from "@tabler/icons";
+import axios from "axios";
 type ProductType = {
   _id: string;
   name: string;
@@ -25,6 +18,7 @@ export function TableProduct({
   setActiveProduct: Dispatch<ProductType | null>;
 }) {
   const splitDateList = String(activeProduct?.exp).split(", ");
+  
 
   return (
     <>
@@ -50,20 +44,35 @@ export function TableProduct({
             src={activeProduct?.image}
             alt={`User uploaded image for ${activeProduct?.name}`}
           />
-          <List center icon={
-        <ActionIcon color="red" size={24} radius="xl">
-          <IconTrash size={16} onClick={() => {
-                        // deleteDate(item._id);
-                      }}/>
-        </ActionIcon>
-      } size="md">
+          <List center size="md" sx={{ listStyleType: "none" }}>
             {splitDateList ? (
               splitDateList.map((dateListItem) => (
-                <span>
-                  <List.Item >
-                  {dateListItem}
-                    </List.Item>
-                      </span>
+                <>
+                  <List.Item sx={{ display: "flex" }}>
+                    <ActionIcon color="red" size={24} radius="xl">
+                      <IconTrash
+                        size={16}
+                        onClick={() => {
+                          axios
+                            .patch(`/product/cull/${activeProduct!._id}`, {
+                              exp:
+                                splitDateList.filter(
+                                  (date) => date !== dateListItem
+                                ),
+                            })
+                            .then((res) => {
+                              if (res.status == 200) {
+                                setActiveProduct(null);
+                              }
+                            })
+                            .catch(() => console.log("an error occured"));
+                        }}
+                      />
+                      {/* */}
+                    </ActionIcon>
+                    {dateListItem}
+                  </List.Item>
+                </>
               ))
             ) : (
               <List.Item>Error</List.Item>

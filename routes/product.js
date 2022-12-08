@@ -29,6 +29,16 @@ router.get("/all", auth, (req, res) => {
     });
   });
 });
+//Delete existing date on product
+router.patch("/cull/:id", auth,(req, res) => {
+  console.log(req.body)
+  Product.findOneAndUpdate({ _id: req.params.id },{$set:{exp: req.body.exp}},{new:true}).then((payload) => {
+    res.json({
+      message: "Query successful",
+      payload,
+    });
+  }).catch((err)=>console.log("Delete date route error:",err));
+});
 
 //Inspect individual product
 router.get("/:id", auth,(req, res) => {
@@ -39,7 +49,8 @@ router.get("/:id", auth,(req, res) => {
     });
   });
 });
-// update product
+
+// Add additional expirary date to existing product
 router.patch("/:id", auth,(req, res) => {
   
   Product.findOneAndUpdate({ upc: req.params.id },{$addToSet:{exp: req.body.exp}}).then((payload) => {

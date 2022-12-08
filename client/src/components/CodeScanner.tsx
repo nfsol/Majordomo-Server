@@ -14,6 +14,7 @@ const CodeScanner = ({
 }) => {
   const [scanning, setScanning] = useState(false);
   const scannerRef = useRef(null);
+  
   const onScan = (result: string) => {
     axios.get(`/product/${result}`).then((res) => {
       if (res.data.payload) {

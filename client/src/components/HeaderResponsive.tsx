@@ -7,8 +7,8 @@ import {
   Burger,
   Paper,
   Transition,
-  Title,
-  Mark
+  Text,
+  Title
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link, useNavigate } from "react-router-dom";
@@ -123,7 +123,10 @@ export function HeaderResponsive({ links }: HeaderResponsiveProps) {
   return (
     <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
       <Container className={classes.header}>
-        <Title order={3} onClick={()=>{navigate("/")}}>Majordomo</Title>
+      <Text
+      variant="gradient"
+      gradient={{ from: 'indigo', to: 'cyan', deg: 45 }}
+      onClick={()=>{navigate("/")}}><Title order={3}>Majordomo</Title></Text>
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>
