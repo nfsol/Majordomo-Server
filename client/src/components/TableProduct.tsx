@@ -1,5 +1,5 @@
 import { Dispatch, useState } from "react";
-import { Modal, Stack, Image, List, Title, ActionIcon } from "@mantine/core";
+import { Modal, Stack, Image, List, Title, Text, ActionIcon } from "@mantine/core";
 import { IconTrash } from "@tabler/icons";
 import axios from "axios";
 type ProductType = {
@@ -37,19 +37,22 @@ export function TableProduct({
                 : theme.colors.gray[0],
           })}
         >
-          <Title order={2}>{activeProduct?.name}</Title>
-          <Title order={4}>{activeProduct?.upc}</Title>
+          <Title order={2}>Product: {activeProduct?.name}</Title>
+          <Title order={4}>UPC: {activeProduct?.upc}</Title>
           <Image
             radius="md"
+            fit="contain"
             src={activeProduct?.image}
+            placeholder={<Text align="center">Loading Image</Text>}
             alt={`User uploaded image for ${activeProduct?.name}`}
           />
+          <Title order={3} sx={{textDecoration:"underline"}}>Best Before Batches</Title>
           <List center size="md" sx={{ listStyleType: "none" }}>
             {splitDateList ? (
               splitDateList.map((dateListItem) => (
                 <>
                   <List.Item sx={{ display: "flex" }}>
-                    <ActionIcon color="red" size={24} radius="xl">
+                    <ActionIcon color="red" size={24} radius="xl" sx={{display:'inline'}}>
                       <IconTrash
                         size={16}
                         onClick={() => {
@@ -68,7 +71,6 @@ export function TableProduct({
                             .catch(() => console.log("an error occured"));
                         }}
                       />
-                      {/* */}
                     </ActionIcon>
                     {dateListItem}
                   </List.Item>
