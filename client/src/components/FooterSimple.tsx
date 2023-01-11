@@ -1,14 +1,13 @@
 import { createStyles, Container, Group, Anchor } from "@mantine/core";
-
+import { Link, useNavigate } from "react-router-dom";
 const useStyles = createStyles((theme) => ({
   footer: {
     marginTop: 120,
-    borderTop: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
-    }`,
+    borderTop: 0,
   },
 
   inner: {
+    color: theme.colors.orange[9],
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -33,22 +32,17 @@ interface FooterSimpleProps {
 
 export function FooterSimple({ links }: FooterSimpleProps) {
   const { classes } = useStyles();
+
   const items = links.map((link) => (
-    <Anchor<"a">
-      color="dimmed"
-      key={link.label}
-      href={link.link}
-      onClick={(event) => event.preventDefault()}
-      size="sm"
-    >
+    <Link className={classes.inner} key={link.label} to={link.link}>
       {link.label}
-    </Anchor>
+    </Link>
   ));
 
   return (
     <div className={classes.footer}>
       <Container className={classes.inner}>
-        <h4>Majordomo is a work in progress - 2022 Tim P.</h4>
+        <h4 color="lightblue">Majordomo is a work in progress - 2022 Tim P.</h4>
         <Group className={classes.links}>{items}</Group>
       </Container>
     </div>

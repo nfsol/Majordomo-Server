@@ -11,7 +11,7 @@ const authedLinks = [
 ];
 const defaultLinks = [
   { link: "/login/", label: "Login" },
-  { link: "/signup/", label: `Request Access` },
+  { link: "/signup/", label: `Sign Up` },
 ];
 
 const Layout = () => {

@@ -66,14 +66,13 @@ export function ProductTable({ data }: ProductsTableProps) {
       </td>
       <td>
         <Group spacing={0} position="right">
-          <ActionIcon>
-            <IconPencil size={16} stroke={1.5} />
-          </ActionIcon>
           <ActionIcon color="red">
             <IconTrash
               size={16}
               stroke={1.5}
               onClick={() => {
+
+                //TODO: Create warning dialogue about deleting entire product.
                 deleteProduct(item._id);
               }}
             />

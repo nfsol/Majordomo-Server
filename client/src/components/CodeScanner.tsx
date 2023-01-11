@@ -3,7 +3,6 @@ import { Button } from "@mantine/core";
 import Scanner from "./Scanner";
 import axios from "axios";
 
-//Largely lifted from Quagga2's example page.
 
 const CodeScanner = ({
   setIsNewItem,
