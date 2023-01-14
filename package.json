@@ -10,7 +10,6 @@
     "server": "nodemon --ignore client/dist/ app.js",
     "client": "cd client && npm run build",
     "render-install": "npm install && cd client && npm install && npm run build"
-
   },
   "author": "Tim P",
   "license": "MIT",

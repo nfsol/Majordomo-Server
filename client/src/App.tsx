@@ -1,5 +1,5 @@
 import { MantineProvider } from "@mantine/core";
-
+import { NotificationsProvider } from '@mantine/notifications';
 import Layout from "./components/Layout";
 
 export default function App() {
@@ -61,7 +61,9 @@ export default function App() {
       withGlobalStyles
       withNormalizeCSS
     >
+      <NotificationsProvider>
       <Layout />
+      </NotificationsProvider>
     </MantineProvider>
   );
 }

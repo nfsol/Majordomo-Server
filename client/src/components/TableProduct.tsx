@@ -1,6 +1,7 @@
 import { Dispatch, useState } from "react";
 import { Modal, Stack, Image, List, Title, Text, ActionIcon } from "@mantine/core";
 import { IconTrash } from "@tabler/icons";
+import { showNotification } from '@mantine/notifications';
 import axios from "axios";
 type ProductType = {
   _id: string;
@@ -66,6 +67,7 @@ export function TableProduct({
                             .then((res) => {
                               if (res.status == 200) {
                                 setActiveProduct(null);
+                                showNotification({ title:'Success',message: 'Date deleted from list' });
                               }
                             })
                             .catch(() => console.log("an error occured"));

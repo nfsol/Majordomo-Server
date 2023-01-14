@@ -3,6 +3,7 @@ import { Drawer, Button, Group } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import axios from "axios";
+import { showNotification } from '@mantine/notifications';
 const UpdateItemDrawer = ({
   isNewItem,
   setIsNewItem,
@@ -29,8 +30,9 @@ const UpdateItemDrawer = ({
     // formData.append("bbDate", bbDate!.toDateString());
 
     axios.patch(`/product/${lastScan}`, {exp:bbDate!.toDateString()}).then((res) => {
-      if (res.status == 200) setLastScan(null);
-      else setFeedback("something went wrong");
+      if (res.status == 200) {setLastScan(null);
+      showNotification({ title:'Saved',message: `Added ${bbDate?.toDateString()} to product entry` });
+      }else setFeedback("something went wrong");
     });
   };
 

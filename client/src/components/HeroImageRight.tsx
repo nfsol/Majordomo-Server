@@ -1,6 +1,6 @@
 import { createStyles, Container, Title, Text, Button } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
-
+import { showNotification } from '@mantine/notifications';
 const useStyles = createStyles((theme) => ({
   root: {
     backgroundColor: "#11284b",
@@ -77,6 +77,7 @@ const useStyles = createStyles((theme) => ({
 export function HeroImageRight() {
   const navigate = useNavigate();
   const { classes } = useStyles();
+  showNotification({ title:'Under Construction',message: 'Things are a little rough, so watch your step!',autoClose: false });
   return (
     <div className={classes.root}>
       <Container size="lg">

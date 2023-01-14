@@ -10,6 +10,9 @@ import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import Compressor from "compressorjs";
 import axios from "axios";
+import { showNotification } from '@mantine/notifications';
+
+
 const NewItemDrawer = ({
   isNewItem,
   setIsNewItem,
@@ -55,7 +58,8 @@ const NewItemDrawer = ({
     formData.append("bbDate", bbDate!.toDateString());
 
     axios.post("/product/new", formData).then((res) => {
-      if (res.status == 200) setLastScan(null)
+      if (res.status == 200) {setLastScan(null)
+        showNotification({ title:'Saved!',message: `Created new entry for${name}` });}
         else setFeedback("something went wrong")
     });
   };

@@ -8,12 +8,12 @@ import {
   ScrollArea,
   useMantineTheme,
 } from "@mantine/core";
-import { IconPencil, IconTrash } from "@tabler/icons";
+import { IconTrash } from "@tabler/icons";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TableProduct } from "./TableProduct";
-
+import { showNotification } from '@mantine/notifications';
 interface ProductsTableProps {
   data: {
     _id: string;
@@ -73,6 +73,7 @@ export function ProductTable({ data }: ProductsTableProps) {
               onClick={() => {
 
                 //TODO: Create warning dialogue about deleting entire product.
+                showNotification({ title:'Deleted Product',message: `Deleted ${item.name} from database` });
                 deleteProduct(item._id);
               }}
             />
