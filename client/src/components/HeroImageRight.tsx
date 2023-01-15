@@ -77,7 +77,6 @@ const useStyles = createStyles((theme) => ({
 export function HeroImageRight() {
   const navigate = useNavigate();
   const { classes } = useStyles();
-  showNotification({ title:'Under Construction',message: 'Things are a little rough, so watch your step!',autoClose: false });
   return (
     <div className={classes.root}>
       <Container size="lg">
@@ -114,7 +113,7 @@ export function HeroImageRight() {
             </Title>
 
             <Text className={classes.description} mt={30}>
-              Simply scan product into Majordomo and we'll help you make sure
+              Simply scan the barcode, enter the date and Majordomo will help you make sure
               that product doesn't go to waste!
             </Text>
 

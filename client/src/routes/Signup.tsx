@@ -43,7 +43,7 @@ import {UserContext} from "../contexts/UserContext"
         setAuthFail(res.data.message);
         if (res.data.token) {
             userContext.setUser({token:res.data.token});
-            navigate("/menu/", { replace: true });
+            navigate("/dash/", { replace: true });
           }
         })
         .catch((err) => console.log(err));

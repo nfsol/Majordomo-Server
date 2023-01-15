@@ -15,7 +15,6 @@ import { useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useContext} from 'react'
 import {UserContext} from "../contexts/UserContext"
-import { showNotification } from '@mantine/notifications';
 
 
 axios.defaults.withCredentials = true;
@@ -42,9 +41,8 @@ export function Login() {
       // console.log("res.data.message is: ", res.data.message)
       setAuthFail(res.data.message);
       if (res.data.token) {
-        showNotification({ title:'Welcome!',message: 'Successful Login' });
           userContext.setUser(res.data.token);
-          navigate("/menu", { replace: true });
+          navigate("/dash", { replace: true });
         }
       })
       .catch((err) => console.log(err));
