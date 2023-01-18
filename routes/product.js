@@ -15,8 +15,6 @@ const mongoose = require("mongoose");
 
 //Retrieve all products in DB, obviously scales poorly and needs
 // rework. Truncated searches and pagination? More targeted search?
-//Speaking of rewrites, I really need to clean up
-// the mixed promises/callbacks, the errors have gotten "weird".
 router.get("/all", auth, (req, res) => {
   Product.find({}).then((payload) => {
     const joinedArraysPayload = payload.map((product) => {
@@ -28,6 +26,25 @@ router.get("/all", auth, (req, res) => {
       payload:joinedArraysPayload,
     });
   });
+});
+
+router.get("/table/:pageNumber", async (req, res) => {
+  try {
+    const pageNumber = parseInt(req.params.pageNumber) || 0;
+    const limit = 20; //could pass another param for custom queries
+    const result = {};
+    const productCount = await Product.countDocuments().exec();
+    let startIndex = pageNumber * limit;
+    result.data = await Product.find()
+      .sort({ "exp.0": 1 })
+      .skip(startIndex)
+      .limit(limit)
+      .exec();
+    return res.json({ message: "Posts Fetched successfully", productCount: productCount,payload: result.data });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Sorry, something went wrong" });
+  }
 });
 //Delete existing date on product
 router.patch("/cull/:id", auth,(req, res) => {

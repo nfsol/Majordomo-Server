@@ -31,7 +31,7 @@ export function Login() {
     
     axios
     .post("/user/login", {
-      email: email,
+      email: email.toLowerCase(),
       password: password,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -60,7 +60,7 @@ export function Login() {
         Welcome back!
       </Title>
       <Text color="dimmed" size="sm" align="center" mt={5}>
-        {authFail ? authFail : "Don't have an account yet? Speak with Tim."}
+        {authFail ? authFail : "Trial: test@test.com Password: test"}
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
