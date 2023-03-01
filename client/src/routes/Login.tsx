@@ -40,9 +40,9 @@ export function Login() {
     .then((res) => {
       // console.log("res.data.message is: ", res.data.message)
       setAuthFail(res.data.message);
-      if (res.data.token) {
+      if (res.data.token == "true") {
           userContext.setUser(res.data.token);
-          navigate("/dash", { replace: true });
+          navigate("/dash", {replace: true});
         }
       })
       .catch((err) => console.log(err));

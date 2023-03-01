@@ -29,11 +29,11 @@ router.post("/login", async (req, res) => {
           dbUser.password
         );
         const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: "24h",
+          expiresIn: "7d",
         });
         if (success) {
-          res.cookie("token", accessToken, { httpOnly: true })
-          res.json({ message: "Logged in successfully.", token: accessToken });
+          res.cookie("token", accessToken, { httpOnly: true, secure: true, sameSite: "lax"})
+          res.json({ message: "Logged in successfully.", token: "true" });
         } else {
           res.json({ message: "Failed login attempt." });
         }
@@ -59,16 +59,16 @@ router.post("/signup", async (req, res) => {
       });
       await newUser.save();
       const accessToken = jwt.sign({ email }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
+        expiresIn: "7d",
       });
       if (accessToken) {
-        res.cookie("token", accessToken, { httpOnly: true })
-          res.json({ message: "Sign up successful.", token: accessToken });
+        res.cookie("token", accessToken, { httpOnly: true, secure: true, sameSite: "lax" })
+          res.json({ message: "Sign up successful.", token: "true" });
       }
     }
   } catch (error) {
     if (error.code === 11000) {
-      return res.send({ status: "error", error: "email already registered" });
+      return res.send({ status: "error", error: "Email already registered" });
     }
     console.log(JSON.stringify(error));
     throw error;
