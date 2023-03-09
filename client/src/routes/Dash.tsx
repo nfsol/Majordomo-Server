@@ -9,30 +9,29 @@ import {
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 const PRIMARY_COL_HEIGHT = 300;
-
+import { MobileDevice } from "../assets/MobileDevice";
 export function Dash() {
   const theme = useMantineTheme();
   const navigate = useNavigate();
   const SECONDARY_COL_HEIGHT = PRIMARY_COL_HEIGHT / 2 - theme.spacing.md / 2;
 
   return (
-    <Container my="md">
+    <>
+    <Container >
+      <MobileDevice height={"400"} width={"100%"}/>
       <SimpleGrid
         cols={2}
         spacing="md"
         breakpoints={[{ maxWidth: "sm", cols: 1 }]}
-      >
+        >
         <Text
           color="dimmed"
           mt="md"
           sx={{
             'padding': '1rem',
-            'border': "8px solid",
-            "border-image":
-              "linear-gradient(to bottom, darkblue, lightblue) 0 1",
           }}
-        >
-          <Title order={1} color="white">
+          >
+          <Title order={1} color="dimmed">
             Welcome to Majordomo!
           </Title>{" "}
           In this demo you'll scan barcodes to enter product into a shared
@@ -53,7 +52,7 @@ export function Dash() {
               onClick={() => {
                 navigate("/iteminput", { replace: true });
               }}
-            >
+              >
               Scan Product
             </Button>
           </Grid.Col>
@@ -63,12 +62,13 @@ export function Dash() {
               onClick={() => {
                 navigate("/upcoming", { replace: true });
               }}
-            >
+              >
               Upcoming Outdates
             </Button>
           </Grid.Col>
         </Grid>
       </SimpleGrid>
     </Container>
+              </>
   );
 }
