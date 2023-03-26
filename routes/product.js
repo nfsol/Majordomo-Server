@@ -13,20 +13,9 @@ const auth = require("../middleware/auth");
 const Product = require("../models/Product");
 const mongoose = require("mongoose");
 
-//Retrieve all products in DB, obviously scales poorly and needs
-// rework. Truncated searches and pagination? More targeted search?
-router.get("/all", auth, (req, res) => {
-  Product.find({}).then((payload) => {
-    const joinedArraysPayload = payload.map((product) => {
-      product.exp = product.exp.join(", ");
-      return product;
-    })
-    res.json({
-      message: "Query successful",
-      payload:joinedArraysPayload,
-    });
-  });
-});
+
+// Todo: Stop being lazy and reorder/document these routes. 
+// Justification for not doing it now: My partner requires bacon.  
 
 router.get("/table/:pageNumber", async (req, res) => {
   try {
@@ -40,7 +29,11 @@ router.get("/table/:pageNumber", async (req, res) => {
       .skip(startIndex)
       .limit(limit)
       .exec();
-    return res.json({ message: "Posts Fetched successfully", productCount: productCount,payload: result.data });
+      const joinedArraysPayload = result.data.map((product) => {
+        product.exp = product.exp.join(", ");
+        return product;
+      })
+    return res.json({ message: "Posts Fetched successfully", productCount: productCount,payload: joinedArraysPayload });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Sorry, something went wrong" });

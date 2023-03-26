@@ -1,5 +1,5 @@
 import { Dispatch, useState } from "react";
-import { Modal, Stack, Image, List, Title, Text, ActionIcon } from "@mantine/core";
+import { Modal, Stack, Image, List, Title, Text, ActionIcon, Container } from "@mantine/core";
 import { IconTrash } from "@tabler/icons";
 import { showNotification } from '@mantine/notifications';
 import axios from "axios";
@@ -26,7 +26,9 @@ export function TableProduct({
       <Modal
         opened={Boolean(activeProduct)}
         onClose={() => setActiveProduct(null)}
-        title="Inspect Product"
+        title={<Title order={2}>Product: {activeProduct?.name}</Title>}
+        size="auto"
+        fullScreen={window.innerWidth > 1000 ? false : true}
       >
         <Stack
           align="center"
@@ -38,15 +40,18 @@ export function TableProduct({
                 : theme.colors.gray[0],
           })}
         >
-          <Title order={2}>Product: {activeProduct?.name}</Title>
           <Title order={4}>UPC: {activeProduct?.upc}</Title>
+          <Container fluid sx={(theme) => ({display: "flex"})}>
+
           <Image
             radius="md"
-            fit="contain"
+            width={'30%S'}
             src={activeProduct?.image}
             placeholder={<Text align="center">Loading Image</Text>}
             alt={`User uploaded image for ${activeProduct?.name}`}
-          />
+            />
+            <div>
+
           <Title order={3} sx={{textDecoration:"underline"}}>Best Before Batches</Title>
           <List center size="md" sx={{ listStyleType: "none" }}>
             {splitDateList ? (
@@ -58,11 +63,11 @@ export function TableProduct({
                         size={16}
                         onClick={() => {
                           axios
-                            .patch(`/product/cull/${activeProduct!._id}`, {
-                              exp:
-                                splitDateList.filter(
-                                  (date) => date !== dateListItem
-                                ),
+                          .patch(`/product/cull/${activeProduct!._id}`, {
+                            exp:
+                            splitDateList.filter(
+                              (date) => date !== dateListItem
+                              ),
                             })
                             .then((res) => {
                               if (res.status == 200) {
@@ -71,17 +76,19 @@ export function TableProduct({
                               }
                             })
                             .catch(() => console.log("an error occured"));
-                        }}
-                      />
+                          }}
+                          />
                     </ActionIcon>
                     {dateListItem}
                   </List.Item>
                 </>
               ))
-            ) : (
-              <List.Item>Error</List.Item>
-            )}
+              ) : (
+                <List.Item>Error, no items found. Try reloading</List.Item>
+                )}
           </List>
+                </div>
+                </Container>
         </Stack>
       </Modal>
     </>

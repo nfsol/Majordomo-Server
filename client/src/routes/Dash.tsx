@@ -17,58 +17,58 @@ export function Dash() {
 
   return (
     <>
-    <Container >
-      <MobileDevice height={"400"} width={"100%"}/>
-      <SimpleGrid
-        cols={2}
-        spacing="md"
-        breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+      <Container>
+        <MobileDevice height={"400"} width={"100%"} />
+        <SimpleGrid
+          cols={2}
+          spacing="md"
+          breakpoints={[{ maxWidth: "sm", cols: 1 }]}
         >
-        <Text
-          color="dimmed"
-          mt="md"
-          sx={{
-            'padding': '1rem',
-          }}
+          <Text
+            color="dimmed"
+            mt="md"
+            sx={{
+              padding: "1rem",
+            }}
           >
-          <Title order={1} color="dimmed">
-            Welcome to Majordomo!
-          </Title>{" "}
-          In this demo you'll scan barcodes to enter product into a shared
-          database, Then manage best before dates via a simple sortable
-          list. Custom queries, categories, and admin role with dashboard coming
-          soon!
-        </Text>
-        <Grid gutter="md">
-          <Grid.Col>
-            <Text color="dimmed" mt="md">
-              Coming Soon: Custom search. Find product expiring between any two
-              dates.
-            </Text>
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <Button
-              variant="outline"
-              onClick={() => {
-                navigate("/iteminput", { replace: true });
-              }}
+            <Title order={1} color="dimmed">
+              Welcome to Majordomo!
+            </Title>{" "}
+            In this demo you'll scan barcodes to enter product into a shared
+            database, Then manage best before dates via a simple sortable list.
+            Custom queries, categories, and admin role with dashboard coming
+            soon!
+          </Text>
+          <Grid gutter="md">
+            <Grid.Col>
+              <Text color="dimmed" mt="md">
+                Coming Soon: Custom search. Find product expiring between any
+                two dates.
+              </Text>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  navigate("/iteminput", { replace: true });
+                }}
               >
-              Scan Product
-            </Button>
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <Button
-              variant="outline"
-              onClick={() => {
-                navigate("/upcoming", { replace: true });
-              }}
+                Scan Product
+              </Button>
+            </Grid.Col>
+            <Grid.Col span={6}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  navigate("/upcoming", { replace: true });
+                }}
               >
-              Upcoming Outdates
-            </Button>
-          </Grid.Col>
-        </Grid>
-      </SimpleGrid>
-    </Container>
-              </>
+                Upcoming Outdates
+              </Button>
+            </Grid.Col>
+          </Grid>
+        </SimpleGrid>
+      </Container>
+    </>
   );
 }
