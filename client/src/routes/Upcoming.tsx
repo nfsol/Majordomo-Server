@@ -26,7 +26,7 @@ const Upcoming = () => {
         });
       }}
     >
-      {currentPage - 1}
+      {currentPage}
     </Button>
   );
   const nextButton = (
