@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import { Button } from "@mantine/core";
 import Scanner from "./Scanner";
 import axios from "axios";
@@ -13,7 +13,7 @@ const CodeScanner = ({
 }) => {
   const [scanning, setScanning] = useState(false);
   const scannerRef = useRef(null);
-  
+
   const onScan = (result: string) => {
     axios.get(`/product/${result}`).then((res) => {
       if (res.data.payload) {
@@ -24,7 +24,17 @@ const CodeScanner = ({
       setLastScan(result);
     });
   };
-
+  function throttle(callback: (result: string) => void, delay: number) {
+    let willWait = false;
+    return function (result: string) {
+      if (!willWait) {
+        callback(result);
+        willWait = true;
+        setTimeout(() => (willWait = false), delay);
+      }
+    };
+  }
+  const throttledOnScan = throttle(onScan, 400);
   return (
     <>
       <Button
@@ -48,7 +58,7 @@ const CodeScanner = ({
         {scanning ? (
           <Scanner
             scannerRef={scannerRef}
-            onDetected={(result) => onScan(result)}
+            onDetected={(result) => throttledOnScan(result)}
           />
         ) : null}
       </div>
