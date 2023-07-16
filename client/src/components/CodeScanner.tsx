@@ -36,14 +36,22 @@ const CodeScanner = ({
   }
   const throttledOnScan = throttle(onScan, 400);
   return (
+    <>
     <div style={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+
       <Button
         variant="outline"
         mt="xl"
+        styles={() => ({
+          root: {
+            marginLeft: '50%'
+          }
+        })}
         onClick={() => setScanning(!scanning)}
-      >
+        >
         {scanning ? "Stop" : "Start"}
       </Button>
+        </div>
       <div ref={scannerRef} style={{ position: "relative" }}>
         <canvas
           className="drawingBuffer"
@@ -61,7 +69,7 @@ const CodeScanner = ({
           />
         ) : null}
       </div>
-    </div>
+    </>
   );
 };
 
