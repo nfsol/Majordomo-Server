@@ -39,7 +39,6 @@ const CodeScanner = ({
     <>
       <Button
         variant="outline"
-        fullWidth
         mt="xl"
         onClick={() => setScanning(!scanning)}
       >
