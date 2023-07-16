@@ -36,7 +36,7 @@ const CodeScanner = ({
   }
   const throttledOnScan = throttle(onScan, 400);
   return (
-    <div style={{display:'flex', justifyContent: 'center'}}>
+    <div style={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
       <Button
         variant="outline"
         mt="xl"
