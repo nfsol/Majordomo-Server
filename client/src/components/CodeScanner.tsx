@@ -42,11 +42,6 @@ const CodeScanner = ({
       <Button
         variant="outline"
         mt="xl"
-        styles={() => ({
-          root: {
-            marginLeft: '50%'
-          }
-        })}
         onClick={() => setScanning(!scanning)}
         >
         {scanning ? "Stop" : "Start"}
